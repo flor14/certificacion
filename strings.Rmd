@@ -1,0 +1,190 @@
+---
+title: "Strings"
+subtitle: "Cadenas de caracteres"
+author: "Flor"
+date: "`r format(Sys.Date(), '%d %b %Y')`"
+output:
+  html_document: 
+    df_print: paged
+    number_sections: yes
+    toc: yes
+    toc_float: true
+    toc_depth: 3
+    code_folding: show
+editor_options:
+  chunk_output_type: inline
+---
+
+# Creando Strings 
+
+### Puedes crear una cadena utilizando comillas simples o dobles.
+
+```{r}
+
+string1 <- "Esta es una cadena de caracteres"
+string2 <- 'Si quiero incluir "comillas" dentro de la cadena, uso comillas simples'
+
+```
+
+
+#### ¿Qué pasa si quiero hacer una string que use comillas?
+
+```{r}
+
+# string3 <- """
+
+# No funciona! Espera que lo cierre...
+
+string4 <- '"'
+string4
+
+```
+
+
+Para incluir comillas simples o dobles de manera literal en una cadena puedes utilizar \ para “escaparlas” (“escapar” viene de la tecla escape):
+
+\ es un *metacaracter* y tiene un significado especial para un programa de computadora, como un intérprete de shell o una expresión regular. (regex).
+
+#### Escape \
+
+```{r}
+
+comilla_doble <- '"'
+comilla_simple <- "'"
+
+comilla_doble 
+comilla_simple
+```
+
+#### ¿Cómo harías una string que incluya \ como caracter?
+
+```{r}
+
+# string <- "\"
+# string
+
+# ¿por qué no funciona?
+
+
+```
+
+
+```{r}
+comilla_doble <- "\"" 
+comilla_simple <- '\'' 
+comilla_doble 
+comilla_simple
+
+```
+
+
+Ten cuidado con que la representación impresa de una cadena no es equivalente a la cadena misma.
+La representación muestra las barras utilizadas para “escapar” caracteres, es decir, para sean *interpretados en su sentido literal, no como caracteres especiales*.
+Para ver el contenido crudo de una cadena utiliza 'writeLines()'
+
+
+```{r}
+?writeLines()
+
+# vendria a ser que lee la string como simbolo y no como texto
+```
+
+#### ¿Será así?
+
+```{r}
+
+x <- c("\"", "\\")
+x
+
+# Si writeLines() lee la cadena como simbolos, ¿Qué ouput obtendría?
+# Ayuda: ¿Los "escapes" \ funcionarian?
+
+# writeLines(x)
+
+```
+
+#### 5 minutos para cortocircuitos
+
+
+Pensemos
+
+1 - \ es un caracter especial. 
+
+(florencia dice que)
+a - Lo que esta en la posición de la derecha de \ R lo ve como texto. Cuidado cuando uso un \ en uno simbolo que R interpreta de a pares, como " ".
+
+b - *cuando imprime*: Puedo imprimirlo y que aparezca el caracter \ o usar writeLines() y no imprimir el \
+*La diferencia esta en la impresion* 
+
+Existe una serie de otros caracteres especiales. Los más comunes son "\n", para salto de línea, y 
+"\t", para tabulador. 
+
+Puedes ver la lista completa pidiendo ayuda acerca de ": ?'"' o ?"'"
+
+```{r}
+
+# tambien hay otros caracteres para incluir simbolos especiales
+
+x <- "\u00b5"
+x
+
+```
+
+## Largo de cadena
+
+funciones del paquete *stringr0
+
+todas empienzan con *str_*
+
+```{r}
+
+library(stringr)
+
+# numero de caracteres de una cadena
+str_length(c("a", "R para Ciencia de Datos", NA))
+
+
+# ¿Para que sirve str_c?¿Y str_replace_na()
+
+str_c("x", "y", sep = ", ")
+
+str_c("x", "y", "z")
+
+
+x <- c("abc", NA)
+
+str_c("|-", x, "-|")
+
+str_c("|-", str_replace_na(x), "-|")
+
+
+```
+
+Entonces
+
+- Si quieres que los NA se impriman como "NA", utiliza *str_replace_na()*
+
+- Para combinar dos o más cadenas utiliza *str_c()*. Usa el argumento sep para controlar cómo separlas. *str_c() es una función vectorizada* que automáticamente recicla los vectores más cortos hasta alcanzar la extensión del más largo:
+
+```{r}
+
+str_c("prefijo-", c("a", "b", "c"), "-sufijo")
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
